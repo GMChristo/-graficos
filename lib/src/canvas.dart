@@ -13,6 +13,73 @@ class Canvas {
     stage.fill(color);
   }
 
+  void drawLineGMC(Line line) {
+    // x= coluna | y =linha
+    final int _xIni = line.start.x;
+    final int _yIni = line.start.y;
+    final int xFim = line.end.x;
+    final int yFim = line.end.y;
+    //Preenche ponto inicial e final
+    stage.putPixel(_xIni, _yIni, line.color);
+    stage.putPixel(xFim, yFim, line.color);
+    //se for mesma linha ou coluna
+    int newXIni = _xIni;
+    int newYIni = _yIni;
+    int newXFim = line.end.x;
+    int newYFim = line.end.y;
+    void linhaColunaImpar() {
+      if(newYFim>1){
+      //altera matriz I
+      newXFim = ((newXFim + 1) / 2).floor();
+      newYFim = ((newYFim + 1) / 2).floor();
+      stage.putPixel(_xIni, _yIni, line.color);
+      stage.putPixel(newXFim, newYFim, line.color);
+      //altera matriz II
+      // newXIni = ((newXIni + 1) / 2).floor();
+      // newYIni = ((newYIni + 1) / 2).floor();
+      // newXIni = newXFim;
+      // newYIni = newYFim;
+      // stage.putPixel(newXIni, newYIni, line.color);
+      // stage.putPixel(xFim, yFim, line.color);
+      linhaColunaImpar();
+      }
+    }
+     linhaColunaImpar();
+    if (newYFim == 1 && newXFim > 1) {
+      var teste = (newXFim / 2).floor();
+      for (var k = 1; k <= teste; k++) {
+        newXIni++;
+        stage.putPixel(newXIni, newYIni, line.color);
+        newXFim--;
+        stage.putPixel(newXFim, newYFim, line.color);
+      }
+    }
+
+    // no caso de se for 3 linhas
+    // if (newYFim == 2 && newXFim >= 2) {
+    //   var teste = (newXFim / 2).floor();
+    //   print('teste= $teste');
+    //   if(teste == 1 || teste == 0){
+    //     stage.putPixel(newXIni+1, newYIni+1, line.color);
+    //     stage.putPixel(newXFim-1, newYFim-1, line.color);
+    //   }
+    //   for (var k = 1; k < teste; k++) {
+    //     newXIni++;
+    //     newXFim--;
+    //     stage.putPixel(newXIni, newYIni, line.color);
+    //     stage.putPixel(newXFim, newYFim, line.color);
+    //   }
+    //   newYIni++;
+    //   newYFim--;
+    //   for (var k = 1; k < teste; k++) {
+    //     newXIni++;
+    //     newXFim--;
+    //     stage.putPixel(newXIni, newYIni, line.color);
+    //     stage.putPixel(newXFim, newYFim, line.color);
+    //   }
+    // }
+  }
+
   void drawLine(Line line) {
     /*if (line.start.y == line.end.y) {
       for (var i = line.start.x; i <= line.end.x; i++) {
